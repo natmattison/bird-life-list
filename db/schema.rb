@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170909195058) do
     t.text "order"
     t.text "family"
     t.text "species_group"
-    t.text "common_name"
+    t.text "common_name", null: false
   end
 
   create_table "sightings", force: :cascade do |t|

@@ -11,8 +11,6 @@ task :import_from_ebird, [:filepath] => [:environment] do |_t, args|
   handler = open(args.filepath)
   csv_string = handler.read.encode!("UTF-8", "iso-8859-1", invalid: :replace)
   CSV.parse(csv_string, headers: true) do |row|
-
-  # CSV.foreach(args.filepath, headers: true) do |row|
     begin
       # only first row of the species group has the species column populated
       species_group = row["SPECIES_GROUP"] || species_group
@@ -25,7 +23,7 @@ task :import_from_ebird, [:filepath] => [:environment] do |_t, args|
       bird.save!
     rescue => error
       puts error
-      failed_rows << ""
+      failed_rows << row
     end
   end
 
