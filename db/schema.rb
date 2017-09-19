@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170910233614) do
+ActiveRecord::Schema.define(version: 20170919011723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,12 +26,28 @@ ActiveRecord::Schema.define(version: 20170910233614) do
     t.text "common_name", null: false
   end
 
+  create_table "paintings", id: :serial, force: :cascade do |t|
+    t.text "name"
+    t.text "description"
+    t.decimal "height"
+    t.decimal "width"
+    t.boolean "sold", default: false
+    t.text "category"
+    t.text "medium"
+    t.text "thumbnail_url"
+    t.text "fullsize_url"
+    t.integer "price"
+    t.boolean "showcase", default: false
+  end
+
   create_table "sightings", force: :cascade do |t|
     t.bigint "bird_id"
     t.bigint "user_id"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "zip_code"
+    t.datetime "seen_at"
     t.index ["bird_id"], name: "index_sightings_on_bird_id"
     t.index ["user_id"], name: "index_sightings_on_user_id"
   end
